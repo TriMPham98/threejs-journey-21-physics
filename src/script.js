@@ -38,8 +38,18 @@ const environmentMapTexture = cubeTextureLoader.load([
  * Physics
  */
 
+// World
 const world = new CANNON.World();
 world.gravity.set(0, -9.82, 0);
+
+// Sphere
+const sphereShape = new CANNON.Sphere(0.5);
+const sphereBody = new CANNON.Body({
+  mass: 1,
+  position: new CANNON.Vec3(0, 3, 3),
+  shape: sphereShape,
+});
+world.addBody(sphereBody)
 
 /**
  * Test sphere
@@ -146,9 +156,17 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
  * Animate
  */
 const clock = new THREE.Clock();
+let oldElapsedTime = 0;
 
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
+  const deltaTime = elapsedTime - oldElapsedTime;
+  oldElapsedTime = elapsedTime;
+
+  // Update physics world
+  world.step(1/60, deltaTime, 3);
+
+  sphere.position.copy(sphereBody.position);
 
   // Update controls
   controls.update();
