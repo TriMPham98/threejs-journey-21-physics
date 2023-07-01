@@ -51,6 +51,13 @@ const sphereBody = new CANNON.Body({
 });
 world.addBody(sphereBody)
 
+// Floor
+const floorShape = new CANNON.Plane();
+const floorBody = new CANNON.Body();
+floorBody.mass = 0;
+floorBody.addShape(floorShape);
+world.addBody(floorBody);
+
 /**
  * Test sphere
  */
@@ -81,7 +88,7 @@ const floor = new THREE.Mesh(
   })
 );
 floor.receiveShadow = true;
-floor.rotation.x = -Math.PI * 0.5;
+// floor.rotation.x = -Math.PI * 0.5;
 scene.add(floor);
 
 /**
