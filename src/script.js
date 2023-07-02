@@ -46,16 +46,17 @@ world.gravity.set(0, -9.82, 0);
 const sphereShape = new CANNON.Sphere(0.5);
 const sphereBody = new CANNON.Body({
   mass: 1,
-  position: new CANNON.Vec3(0, 3, 3),
+  position: new CANNON.Vec3(0, 3, 0),
   shape: sphereShape,
 });
-world.addBody(sphereBody)
+world.addBody(sphereBody);
 
 // Floor
 const floorShape = new CANNON.Plane();
 const floorBody = new CANNON.Body();
 floorBody.mass = 0;
 floorBody.addShape(floorShape);
+floorBody.quaternion.setFromAxisAngle(new CANNON.Vec3(-1, 0, 0), Math.PI * 0.5);
 world.addBody(floorBody);
 
 /**
@@ -88,7 +89,7 @@ const floor = new THREE.Mesh(
   })
 );
 floor.receiveShadow = true;
-// floor.rotation.x = -Math.PI * 0.5;
+floor.rotation.x = -Math.PI * 0.5;
 scene.add(floor);
 
 /**
@@ -171,7 +172,7 @@ const tick = () => {
   oldElapsedTime = elapsedTime;
 
   // Update physics world
-  world.step(1/60, deltaTime, 3);
+  world.step(1 / 60, deltaTime, 3);
 
   sphere.position.copy(sphereBody.position);
 
