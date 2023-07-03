@@ -152,6 +152,8 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
  * Utils
  */
 
+const objectsToUpdate = [];
+
 const createSphere = (radius, position) => {
   // Three.js mesh
   const mesh = new THREE.Mesh(
@@ -175,9 +177,19 @@ const createSphere = (radius, position) => {
   });
   body.position.copy(position);
   world.addBody(body);
+
+  // Save in objectsToUpdate array
+  objectsToUpdate.push({
+    mesh,
+    body,
+  });
 };
 
 createSphere(0.5, { x: 0, y: 3, z: 0 });
+createSphere(0.5, { x: -2, y: 5, z: 1 });
+createSphere(0.5, { x: 3, y: 4, z: 2 });
+
+console.log(objectsToUpdate);
 
 /**
  * Animate
@@ -192,6 +204,10 @@ const tick = () => {
 
   // Update physics world
   world.step(1 / 60, deltaTime, 3);
+
+  for (const object of objectsToUpdate) {
+    object.mesh.position.copy(object.body.position);
+  }
 
   // Update controls
   controls.update();
