@@ -163,8 +163,7 @@ const createSphere = (radius, position) => {
     })
   );
   mesh.castShadow = true;
-  mesh.position.copy(position),
-  scene.add(mesh);
+  mesh.position.copy(position), scene.add(mesh);
 
   // Cannon.js body
   const shape = new CANNON.Sphere(radius);
@@ -172,11 +171,13 @@ const createSphere = (radius, position) => {
     mass: 1,
     position: new CANNON.Vec3(0, 3, 0),
     shape,
-    material: defaultMaterial
-  })
+    material: defaultMaterial,
+  });
   body.position.copy(position);
   world.addBody(body);
 };
+
+createSphere(0.5, { x: 0, y: 3, z: 0 });
 
 /**
  * Animate
