@@ -186,8 +186,6 @@ const createSphere = (radius, position) => {
 };
 
 createSphere(0.5, { x: 0, y: 3, z: 0 });
-createSphere(0.5, { x: -2, y: 5, z: 1 });
-createSphere(0.5, { x: 3, y: 4, z: 2 });
 
 console.log(objectsToUpdate);
 
