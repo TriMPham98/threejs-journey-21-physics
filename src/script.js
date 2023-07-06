@@ -63,6 +63,7 @@ const environmentMapTexture = cubeTextureLoader.load([
 // World
 const world = new CANNON.World();
 world.broadphase = new CANNON.SAPBroadphase(world);
+world.allowSleep = true;
 world.gravity.set(0, -9.82, 0);
 
 // Materials
@@ -228,7 +229,9 @@ const createBox = (width, height, depth, position) => {
   mesh.position.copy(position), scene.add(mesh);
 
   // Cannon.js body
-  const shape = new CANNON.Box(new CANNON.Vec3(width * 0.5, height * 0.5, depth * 0.5));
+  const shape = new CANNON.Box(
+    new CANNON.Vec3(width * 0.5, height * 0.5, depth * 0.5)
+  );
   const body = new CANNON.Body({
     mass: 1,
     position: new CANNON.Vec3(0, 3, 0),
