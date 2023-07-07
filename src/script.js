@@ -46,6 +46,10 @@ const scene = new THREE.Scene();
  */
 const hitSound = new Audio("/sounds/hit.mp3");
 
+const playHitSound = () => {
+  hitSound.play();
+};
+
 /**
  * Textures
  */
