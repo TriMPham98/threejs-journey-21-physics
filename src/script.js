@@ -31,6 +31,12 @@ debugObject.createBox = () => {
 };
 gui.add(debugObject, "createBox");
 
+debugObject.reset = () => {
+  console.log("reset");
+};
+
+gui.add(debugObject, "reset");
+
 /**
  * Base
  */
